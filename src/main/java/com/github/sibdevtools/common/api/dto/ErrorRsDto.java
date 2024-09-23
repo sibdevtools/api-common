@@ -1,4 +1,4 @@
-package com.github.simplemocks.common.api.dto;
+package com.github.sibdevtools.common.api.dto;
 
 import jakarta.annotation.Nonnull;
 import lombok.Builder;

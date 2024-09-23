@@ -1,7 +1,7 @@
-package com.github.simplemocks.common.api.rs;
+package com.github.sibdevtools.common.api.rs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.github.simplemocks.common.api.dto.ErrorRsDto;
+import com.github.sibdevtools.common.api.dto.ErrorRsDto;
 import lombok.Getter;
 
 import java.io.Serializable;

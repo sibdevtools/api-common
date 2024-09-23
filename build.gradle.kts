@@ -6,7 +6,10 @@ plugins {
     id("java")
 }
 
-version = "${project.property("version")}"
+val versionFromProperty = "${project.property("version")}"
+val versionFromEnv: String? = System.getenv("VERSION")
+
+version = versionFromEnv ?: versionFromProperty
 group = "${project.property("group")}"
 
 val targetJavaVersion = (project.property("jdk_version") as String).toInt()
@@ -75,7 +78,7 @@ publishing {
             from(components["java"])
             pom {
                 packaging = "jar"
-                url = "https://github.com/simple-mocks/api-common"
+                url = "https://github.com/sibdevtools/api-common"
 
                 licenses {
                     license {
@@ -85,9 +88,9 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:https://github.com/simple-mocks/api-common.git")
-                    developerConnection.set("scm:git:ssh://github.com/simple-mocks")
-                    url.set("https://github.com/simple-mocks/api-common")
+                    connection.set("scm:https://github.com/sibdevtools/api-common.git")
+                    developerConnection.set("scm:git:ssh://github.com/sibdevtools")
+                    url.set("https://github.com/sibdevtools/api-common")
                 }
 
                 developers {
