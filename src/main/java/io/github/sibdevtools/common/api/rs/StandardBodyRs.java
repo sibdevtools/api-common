@@ -9,12 +9,16 @@ import java.io.Serializable;
 /**
  * Standard response type for all APIs
  *
+ * @param <T> type of the response body
  * @author sibmaks
  * @since 0.0.1
  */
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StandardBodyRs<T extends Serializable> extends StandardRs {
+    /**
+     * Response body, present only in success responses with data
+     */
     private final T body;
 
     /**
