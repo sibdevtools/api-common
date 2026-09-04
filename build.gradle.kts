@@ -7,6 +7,8 @@ plugins {
     id("org.sonarqube") version "7.4.0.8496"
 }
 
+val organizationName = "${project.property("organization_name")}"
+val projectName = "${project.property("project_name")}"
 val versionFromProperty = "${project.property("version")}"
 val versionFromEnv: String? = System.getenv("VERSION")
 
@@ -56,7 +58,7 @@ java {
 
 tasks.jar {
     from("LICENSE") {
-        rename { "${it}_${project.property("project_name")}" }
+        rename { "${it}_${projectName}" }
     }
     manifest {
         attributes(
@@ -78,15 +80,27 @@ tasks.register("printVersion") {
     }
 }
 
+sonar {
+    properties {
+        property("sonar.organization", organizationName)
+        property("sonar.projectKey", "${organizationName}_${projectName}")
+        property("sonar.projectName", projectName)
+        property("sonar.host.url", project.property("sonar.host.url") ?: "https://sonarcloud.io")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.java.coveragePlugin", "jacoco")
+        property("sonar.scm.disabled", "true")
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             pom {
                 packaging = "jar"
-                name.set("api-common")
+                name.set(projectName)
                 description.set("SibDevTools common project API")
-                url = "https://github.com/sibdevtools/api-common"
+                url = "https://github.com/${organizationName}/${projectName}"
 
                 licenses {
                     license {
@@ -96,9 +110,9 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:git:https://github.com/sibdevtools/api-common.git")
-                    developerConnection.set("scm:git:ssh://github.com/sibdevtools/api-common.git")
-                    url.set("https://github.com/sibdevtools/api-common")
+                    connection.set("scm:git:https://github.com/${organizationName}/${projectName}.git")
+                    developerConnection.set("scm:git:ssh://github.com/${organizationName}/${projectName}.git")
+                    url.set("https://github.com/${organizationName}/${projectName}")
                 }
 
                 developers {
