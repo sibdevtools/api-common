@@ -1,7 +1,7 @@
-package com.github.sibdevtools.common.api.rs;
+package io.github.sibdevtools.common.api.rs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.github.sibdevtools.common.api.dto.ErrorRsDto;
+import io.github.sibdevtools.common.api.dto.ErrorRsDto;
 import lombok.Getter;
 
 import java.io.Serializable;

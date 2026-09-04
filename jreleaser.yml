@@ -1,0 +1,47 @@
+project:
+  name: api-common
+  description: "SibDevTools common project API"
+  longDescription: file:README.md
+  license: MIT
+  authors:
+    - Maksim Drobyshev
+  languages:
+    java:
+      groupId: io.github.sibdevtools
+      version: "25"
+      artifactId: api-common
+      multiProject: true
+  links:
+    homepage: https://github.com/sibdevtools/api-common
+  tags:
+    - api
+    - java
+    - sibdevtools
+
+release:
+  github:
+    owner: sibdevtools
+    name: api-common
+    tagName: v{{projectVersion}}
+    releaseName: Release {{projectVersion}}
+    prerelease:
+      enabled: true
+      pattern: .*-.*
+    skipTag: true
+    makeLatest: legacy
+
+deploy:
+  active: ALWAYS
+  maven:
+    active: ALWAYS
+    mavenCentral:
+      sonatype:
+        active: RELEASE_PRERELEASE
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories:
+          - build/staging-deploy
+
+signing:
+  active: ALWAYS
+  armored: true
+  mode: MEMORY

@@ -4,6 +4,7 @@ import java.util.*
 plugins {
     id("maven-publish")
     id("java")
+    id("org.sonarqube") version "7.4.0.8496"
 }
 
 val versionFromProperty = "${project.property("version")}"
@@ -11,6 +12,7 @@ val versionFromEnv: String? = System.getenv("VERSION")
 
 version = versionFromEnv ?: versionFromProperty
 group = "${project.property("group")}"
+description = "SibDevTools common project API"
 
 val targetJavaVersion = (project.property("jdk_version") as String).toInt()
 val javaVersion = JavaVersion.toVersion(targetJavaVersion)
@@ -22,8 +24,6 @@ java {
 
 repositories {
     mavenCentral()
-    maven(url = "https://nexus.sibmaks.ru/repository/maven-snapshots/")
-    maven(url = "https://nexus.sibmaks.ru/repository/maven-releases/")
 }
 
 dependencies {
@@ -72,24 +72,32 @@ tasks.jar {
     }
 }
 
+tasks.register("printVersion") {
+    doLast {
+        println(project.version)
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             pom {
                 packaging = "jar"
+                name.set("api-common")
+                description.set("SibDevTools common project API")
                 url = "https://github.com/sibdevtools/api-common"
 
                 licenses {
                     license {
-                        name.set("The MIT License (MIT)")
-                        url.set("https://www.mit.edu/~amini/LICENSE.md")
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
                     }
                 }
 
                 scm {
-                    connection.set("scm:https://github.com/sibdevtools/api-common.git")
-                    developerConnection.set("scm:git:ssh://github.com/sibdevtools")
+                    connection.set("scm:git:https://github.com/sibdevtools/api-common.git")
+                    developerConnection.set("scm:git:ssh://github.com/sibdevtools/api-common.git")
                     url.set("https://github.com/sibdevtools/api-common")
                 }
 
@@ -100,17 +108,6 @@ publishing {
                         email.set("sibmaks@vk.com")
                     }
                 }
-            }
-        }
-    }
-    repositories {
-        maven {
-            val releasesUrl = uri("https://nexus.sibmaks.ru/repository/maven-releases/")
-            val snapshotsUrl = uri("https://nexus.sibmaks.ru/repository/maven-snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsUrl else releasesUrl
-            credentials {
-                username = project.findProperty("nexus_username")?.toString() ?: System.getenv("NEXUS_USERNAME")
-                password = project.findProperty("nexus_password")?.toString() ?: System.getenv("NEXUS_PASSWORD")
             }
         }
     }

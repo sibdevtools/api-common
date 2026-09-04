@@ -1,4 +1,4 @@
-package com.github.sibdevtools.common.api.dto;
+package io.github.sibdevtools.common.api.dto;
 
 import jakarta.annotation.Nonnull;
 import lombok.Builder;
