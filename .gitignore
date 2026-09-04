@@ -187,3 +187,7 @@ user.gradle
 .settings/
 
 
+
+# GPG release keys (local only)
+gpg-keys.md
+*.asc
