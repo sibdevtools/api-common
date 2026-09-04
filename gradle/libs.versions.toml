@@ -1,0 +1,13 @@
+[versions]
+sonarqube = "7.4.0.8496"
+lombok = "1.18.46"
+jackson = "2.22"
+jakartaAnnotationApi = "3.0.0"
+
+[libraries]
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api", version.ref = "jakartaAnnotationApi" }
+
+[plugins]
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }

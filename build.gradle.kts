@@ -4,9 +4,8 @@ import java.util.*
 plugins {
     id("maven-publish")
     id("java")
-    id("org.sonarqube") version "7.4.0.8496"
+    alias(libs.plugins.sonarqube)
 }
-
 val organizationName = "${project.property("organization_name")}"
 val projectName = "${project.property("project_name")}"
 val versionFromProperty = "${project.property("version")}"
@@ -29,11 +28,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.projectlombok:lombok:${project.property("lib_lombok_version")}")
-    annotationProcessor("org.projectlombok:lombok:${project.property("lib_lombok_version")}")
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 
-    implementation("com.fasterxml.jackson.core:jackson-annotations:${project.property("lib_jackson_version")}")
-    implementation("jakarta.annotation:jakarta.annotation-api:${project.property("lib_annotation_api_version")}")
+    implementation(libs.jackson.annotations)
+    implementation(libs.jakarta.annotation.api)
 
 }
 
